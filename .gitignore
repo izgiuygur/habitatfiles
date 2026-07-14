@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+
+# Editor / env
+.vscode/
+.idea/
+*.log
+.env
+.env.*
+
+# Node (if any tooling is added later)
+node_modules/
+
+# Scratch build artifacts
+og_src.svg
+*.tmp
