@@ -522,6 +522,20 @@
   });
   svg.addEventListener("pointerout",e=>{if(e.target.tagName==="rect")tip.style.opacity="0";});
 
+  // "Sim. of appearance" status chip — explainer tooltip (reuses the dark #tip box)
+  const simChip=document.querySelector('#fStatus [data-v="S"]');
+  if(simChip){
+    const SIM_HTML=`<div class="tn">Threatened (S/A) — Similarity of Appearance</div>`+
+      `<div style="color:#cfc9bd;font-size:.7rem;line-height:1.5;margin-top:2px">Not itself endangered, but so closely resembles a protected species that it's listed too — so the look-alike can't be used to skirt the ban. Classic case: the American alligator, protected because its hide resembles the endangered American crocodile.</div>`;
+    simChip.addEventListener("pointerover",()=>{tip.innerHTML=SIM_HTML;tip.style.opacity="1";});
+    simChip.addEventListener("pointermove",e=>{
+      let x=e.clientX+14,y=e.clientY+14,w=tip.offsetWidth,h=tip.offsetHeight;
+      if(x+w>innerWidth-8)x=e.clientX-w-14; if(y+h>innerHeight-8)y=e.clientY-h-14;
+      tip.style.left=x+"px";tip.style.top=y+"px";
+    });
+    simChip.addEventListener("pointerout",()=>{tip.style.opacity="0";});
+  }
+
   layout(); applyFilter();
   let rt; addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(layout,180);});
 
