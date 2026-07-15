@@ -138,6 +138,16 @@
   .acts a{display:flex;justify-content:space-between;align-items:center;padding:20px 2px;border-bottom:1px solid var(--hair);text-decoration:none;color:var(--ink);font-size:1.15rem;transition:padding-left .2s,color .2s}
   .acts a:hover{padding-left:14px;color:var(--accent)}
   .acts a .arw{font-family:"SF Mono",monospace;color:var(--accent);font-size:.9rem}
+  .cta{margin-top:1.2em;padding:24px;background:var(--paper-2);border:1px solid var(--hair);border-left:3px solid var(--accent)}
+  .cta h3{font-size:1.5rem;line-height:1.15;margin:0 0 .5em}
+  .cta .why{font-size:1.02rem;margin:0 0 1.2em}
+  .msg{background:var(--paper);border:1px solid var(--hair);border-radius:6px;padding:16px}
+  .msg p{font-size:.94rem;line-height:1.55;margin:0 0 12px;color:var(--ink-soft)}
+  .msg button{font-family:"SF Mono",monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--paper);border:none;border-radius:40px;padding:9px 18px;cursor:pointer;transition:background .15s}
+  .msg button:hover,.msg button.done{background:var(--accent)}
+  .cta-link{display:flex;justify-content:space-between;align-items:center;margin-top:1.2em;padding:15px 18px;background:var(--accent);color:#fff;text-decoration:none;font-size:1.12rem;border-radius:6px;transition:opacity .15s}
+  .cta-link:hover{opacity:.92}
+  .cta-link .arw{font-family:"SF Mono",monospace;color:#fff;font-size:.9rem}
 
   footer{padding:9vh 0;font-size:.82rem;color:var(--ink-soft)}
   footer .eyebrow{margin-bottom:16px}
@@ -283,15 +293,29 @@
   <div class="wrap">
     <div class="eyebrow" style="margin-bottom:1.4em">The story isn't finished</div>
     <h2>The rule is final.<br>The fight over it isn't.</h2>
-    <p>The public comment period is closed. The rule is scheduled to take effect on September 14, 2026, and a federal lawsuit is already underway.</p>
-    <p>Congress can respond. Courts can block or overturn the rule. States can strengthen their own habitat protections.</p>
-    <p>Habitat is home. What the law protects next is still being decided.</p>
-    <div class="acts">
-      <a href="https://earthjustice.org/press/2026/lawsuit-seeks-to-protect-americas-wildlife-from-trump-administration" target="_blank" rel="noopener"><span>Track the legal challenge</span><span class="arw">↗</span></a>
-      <a href="https://www.congress.gov/members/find-your-member" target="_blank" rel="noopener"><span>Contact your representative</span><span class="arw">↗</span></a>
-      <a href="https://ecos.fws.gov/ecp/report/species-listings-by-state-totals" target="_blank" rel="noopener"><span>Find wildlife protections in your state</span><span class="arw">↗</span></a>
-      <a href="https://www.federalregister.gov/documents/2026/07/14/2026-14195/rescinding-the-definition-of-harm-under-the-endangered-species-act" target="_blank" rel="noopener"><span>Read the final rule</span><span class="arw">↗</span></a>
+    <p>The public comment period has closed. The rule is scheduled to take effect on September 14, unless a court blocks it. Conservation groups have filed suit. Congress can act, and states can keep or strengthen protections under their own laws.</p>
+
+    <div class="eyebrow mute" style="margin:2.4em 0 1em">What you can do now</div>
+
+    <div class="cta">
+      <h3>Contact your members of Congress</h3>
+      <p class="why">Ask them to restore the longstanding definition of “harm,” including significant habitat modification that actually kills or injures protected wildlife.</p>
+      <div class="msg">
+        <p id="ctaMsg">I’m asking you to support restoring the longstanding Endangered Species Act definition of “harm,” including significant habitat modification that actually kills or injures protected wildlife. Habitat destruction should not fall outside the law simply because the animal is not directly touched.</p>
+        <button id="copyMsg" type="button">Copy message</button>
+      </div>
+      <a class="cta-link" href="https://www.congress.gov/members/find-your-member" target="_blank" rel="noopener"><span>Find your members of Congress</span><span class="arw">↗</span></a>
     </div>
+
+    <div class="acts">
+      <a href="https://earthjustice.org/press/2026/lawsuit-seeks-to-protect-americas-wildlife-from-trump-administration" target="_blank" rel="noopener"><span>Read the legal challenge</span><span class="arw">↗</span></a>
+      <a href="https://ecos.fws.gov/ecp/report/species-listings-by-state-totals" target="_blank" rel="noopener"><span>See listed species in your state</span><span class="arw">↗</span></a>
+      <a href="https://www.federalregister.gov/documents/2026/07/14/2026-14195/rescinding-the-definition-of-harm-under-the-endangered-species-act" target="_blank" rel="noopener"><span>Read the final rule</span><span class="arw">↗</span></a>
+      <a id="shareBrief" href="https://habitatfiles.org/" rel="noopener"><span>Share this brief</span><span class="arw">↗</span></a>
+    </div>
+    <p class="close-note" style="margin-top:1.6em;color:var(--ink-soft);font-size:.82rem">Legal challenge filed July 14, 2026 — Case No. 2:26-cv-02474, U.S. District Court, Western District of Washington.</p>
+
+    <p style="margin-top:2em">Habitat is home. What the law protects next is still being decided.</p>
   </div>
 </section>
 
@@ -590,6 +614,22 @@
       l.style.transition=`stroke-dashoffset 1.1s ease ${.15+i*.18}s`;requestAnimationFrame(()=>l.style.strokeDashoffset="0");});
   }),{threshold:.25});
   document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+  // ---------- ACTION SECTION: copy message + share ----------
+  const copyBtn=document.getElementById("copyMsg");
+  if(copyBtn)copyBtn.addEventListener("click",()=>{
+    const t=document.getElementById("ctaMsg").textContent.trim();
+    (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{
+      copyBtn.textContent="Copied ✓";copyBtn.classList.add("done");
+      setTimeout(()=>{copyBtn.textContent="Copy message";copyBtn.classList.remove("done");},2200);
+    }).catch(()=>{copyBtn.textContent="Select & press ⌘/Ctrl-C";setTimeout(()=>copyBtn.textContent="Copy message",2600);});
+  });
+  const shareBtn=document.getElementById("shareBrief");
+  if(shareBtn)shareBtn.addEventListener("click",e=>{
+    const url="https://habitatfiles.org/",lbl=shareBtn.querySelector("span");
+    if(navigator.share){e.preventDefault();navigator.share({title:"The Habitat Files",text:"A data-driven brief on the Endangered Species Act “harm” rule.",url}).catch(()=>{});}
+    else if(navigator.clipboard){e.preventDefault();navigator.clipboard.writeText(url).then(()=>{const o=lbl.textContent;lbl.textContent="Link copied ✓";setTimeout(()=>lbl.textContent=o,2200);}).catch(()=>{});}
+  });
 })();
 </script>
 </body>
