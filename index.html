@@ -722,7 +722,7 @@
   const VW=1000, rowH=50, top=22, axisY=top+sorted.length*rowH+8, VH=axisY+84;
   const xL=225, xR=940, plotW=xR-xL, lg=Math.log10, xOf=v=>xL+(lg(v)-1)/4*plotW; // domain 10..100,000
   let out=`<svg viewBox="0 0 ${VW} ${VH}" class="dumbbell" role="img" aria-label="Population recovery of nine species from a documented low to the latest count, on a shared logarithmic axis (units and survey methods differ by species)">`;
-  [10,100,1000,10000,100000].forEach(g=>{const x=xOf(g).toFixed(1);out+=`<line x1="${x}" y1="${top-6}" x2="${x}" y2="${axisY}" stroke="#e5e0d2" stroke-width="1"/><text x="${x}" y="${axisY+18}" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#8a8577">${g.toLocaleString()}</text>`;});
+  [10,100,1000,10000,100000].forEach(g=>{const x=xOf(g).toFixed(1);out+=`<line x1="${x}" y1="${top-6}" x2="${x}" y2="${axisY}" stroke="#efeade" stroke-width="1"/><text x="${x}" y="${axisY+18}" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#8a8577">${g.toLocaleString()}</text>`;});
   out+=`<circle cx="470" cy="${axisY+48}" r="4" fill="#f6f4ee" stroke="#17150f" stroke-width="1.5"/><text x="481" y="${axisY+51}" font-family="SF Mono,monospace" font-size="9.5" fill="#8a8577">documented low</text>`
     +`<circle cx="618" cy="${axisY+48}" r="5" fill="#17150f"/><text x="629" y="${axisY+51}" font-family="SF Mono,monospace" font-size="9.5" fill="#8a8577">latest count</text>`;
   out+=`<text x="${((xL+xR)/2).toFixed(0)}" y="${VH-8}" text-anchor="middle" font-family="SF Mono,monospace" font-size="10" fill="#a89f8c">Population count, logarithmic scale · units and survey methods differ by species</text>`;
