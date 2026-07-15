@@ -136,9 +136,9 @@
   .close{border-top:1px solid var(--ink)}.close h2{max-width:20ch}
   .acts{display:flex;flex-direction:column;margin-top:1.5em;border-top:1px solid var(--hair)}
   .acts a{display:flex;justify-content:space-between;align-items:center;padding:20px 2px;border-bottom:1px solid var(--hair);text-decoration:none;color:var(--ink);font-size:1.15rem;transition:padding-left .2s,color .2s}
-  .acts a:hover{padding-left:14px;color:var(--accent)}
+  .acts a:hover{padding-left:14px;color:var(--accent);background:var(--paper)}
   .acts a .arw{font-family:"SF Mono",monospace;color:var(--accent);font-size:.9rem}
-  .cta{margin-top:1.2em;padding:24px;background:var(--paper-2);border:1px solid var(--hair);border-left:3px solid var(--accent)}
+  .cta{padding:2px 0 2px 18px;border-left:3px solid var(--accent)}
   .cta h3{font-size:1.5rem;line-height:1.15;margin:0 0 .5em}
   .cta .why{font-size:1.02rem;margin:0 0 1.2em}
   .msg{background:var(--paper);border:1px solid var(--hair);border-radius:6px;padding:16px}
@@ -155,9 +155,64 @@
   footer a{color:var(--accent);text-decoration:none}footer a:hover{text-decoration:underline}
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
   .reveal.in{opacity:1;transform:none}
+  /* section nav */
+  html{scroll-behavior:smooth}
+  section[id],footer[id]{scroll-margin-top:64px}
+  #secnav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(246,244,238,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--hair);transform:translateY(-100%);opacity:0;transition:transform .25s ease,opacity .25s ease}
+  #secnav.show{transform:translateY(0);opacity:1}
+  .secnav-in{max-width:1180px;margin:0 auto;display:flex;padding:0 22px;overflow-x:auto;scrollbar-width:none}
+  .secnav-in::-webkit-scrollbar{display:none}
+  #secnav a{font-family:"SF Mono",ui-monospace,monospace;font-size:.64rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;padding:13px;white-space:nowrap;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+  #secnav a:hover{color:var(--ink)}
+  #secnav a.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+  /* action module */
+  .action-module{margin-top:1.8em;padding:24px;background:var(--paper-2);border:1px solid var(--hair);border-top:3px solid var(--accent);border-radius:8px}
+
+  /* filter panel + active filters */
+  .filter-toggle{margin-left:auto;font-family:"SF Mono",monospace;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);background:none;border:1px solid var(--hair);border-radius:40px;padding:5px 14px;cursor:pointer;transition:all .15s}
+  .filter-toggle:hover{border-color:var(--ink-soft);color:var(--ink)}
+  .filter-toggle.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  .filter-panel{flex-direction:column;gap:12px;margin-top:2px;padding-top:14px;border-top:1px dashed var(--hair)}
+  .filter-panel:not([hidden]){display:flex}
+  .active-filters{flex-wrap:wrap;gap:7px;align-items:center;margin:-4px 0 16px}
+  .active-filters:not([hidden]){display:flex}
+  .afchip{font-family:"SF Mono",monospace;font-size:.68rem;letter-spacing:.02em;background:var(--ink);color:var(--paper);border:1px solid var(--ink);border-radius:40px;padding:4px 10px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .15s,border-color .15s}
+  .afchip .x{opacity:.65}
+  .afchip:hover{background:var(--accent);border-color:var(--accent)}
+  .afchip.clear{background:none;color:var(--accent);border:0;text-transform:uppercase;font-size:.64rem;letter-spacing:.08em}
+  .afchip.clear:hover{text-decoration:underline;background:none}
+
+  /* source details */
+  footer .src-intro{font-size:.9rem;color:var(--ink-soft);margin-bottom:1.4em;max-width:60ch}
+  .srcsec{border-top:1px solid var(--hair)}
+  .srcsec summary{list-style:none;cursor:pointer;padding:15px 0;font-family:"SF Mono",monospace;font-size:.8rem;letter-spacing:.04em;color:var(--ink);display:flex;align-items:center;gap:12px;transition:color .15s}
+  .srcsec summary::-webkit-details-marker{display:none}
+  .srcsec summary:hover{color:var(--accent)}
+  .srcsec summary::after{content:"+";margin-left:auto;font-size:1.15rem;color:var(--ink-soft);line-height:1}
+  .srcsec[open] summary::after{content:"\2013"}
+  .srcnum{font-family:"SF Mono",monospace;font-size:.7rem;width:22px;height:22px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--faint);border-radius:50%;color:var(--ink-soft)}
+  .srcbody{max-width:68ch;padding-bottom:10px}
+  .srcbody p{font-size:.9rem;line-height:1.62;margin-bottom:1em}
+
+  /* citation markers */
+  .cite{font-family:"SF Mono",monospace;font-size:.6em;vertical-align:super;line-height:0;color:var(--accent);text-decoration:none;margin-left:3px;padding:1px 4px;border:1px solid var(--accent-soft);border-radius:3px;white-space:nowrap}
+  .cite:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 </style>
 </head>
 <body>
+
+<nav id="secnav" aria-label="Section navigation">
+  <div class="secnav-in">
+    <a href="#explore">Explore</a>
+    <a href="#changed">What changed</a>
+    <a href="#habitat">Habitat lost</a>
+    <a href="#recovery">Recovery</a>
+    <a href="#debate">The debate</a>
+    <a href="#action">Take action</a>
+    <a href="#sources">Sources</a>
+  </div>
+</nav>
 
 <header class="mast">
   <div class="wrap">
@@ -169,10 +224,10 @@
 </header>
 
 <!-- 01 EXPLORER -->
-<section>
+<section id="explore">
   <div class="wrap">
     <div class="secnum"><span class="n">01</span><span class="eyebrow mute">The scale · explore</span><span class="ln"></span></div>
-    <p class="lead drop">This explorer brings together <strong>1,643</strong> distinct species represented in current U.S. Endangered Species Act listings — <strong>1,594</strong> from Fish &amp; Wildlife Service data and <strong>49</strong> marine species managed by NOAA Fisheries.</p>
+    <p class="lead drop">This explorer brings together <strong>1,643</strong> distinct species represented in current U.S. Endangered Species Act listings — <strong>1,594</strong> from Fish &amp; Wildlife Service data and <strong>49</strong> marine species managed by NOAA Fisheries.<a class="cite" href="#src-2" title="Sources: Species explorer">2</a></p>
     <p>Every dot is one species. Hover to find its name, arrange the collection by group, status, or agency, or search for one directly.</p>
     <p>More than half are plants. The rule examined here concerns the ESA's prohibition on the “take” of fish and wildlife, so its direct effect falls on the animals in this collection.</p>
   </div>
@@ -192,23 +247,27 @@
 
     <div class="controls">
       <div class="ctl-row">
-        <span class="ctl-lab">Arrange</span>
+        <span class="ctl-lab">Arrange by</span>
         <div class="chips" id="arrangeChips"></div>
+        <button class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="filterPanel">Filter<span id="filterCount"></span></button>
       </div>
-      <div class="ctl-row">
-        <span class="ctl-lab">Group</span>
-        <div class="chips" id="fGroup"></div>
-      </div>
-      <div class="ctl-row">
-        <span class="ctl-lab">Status</span>
-        <div class="chips" id="fStatus"></div>
-      </div>
-      <div class="ctl-row">
-        <span class="ctl-lab">Source</span>
-        <div class="chips" id="fSource"></div>
-        <button class="clearbtn" id="clearBtn" style="margin-left:auto">✕ clear all</button>
+      <div class="filter-panel" id="filterPanel" hidden>
+        <div class="ctl-row">
+          <span class="ctl-lab">Group</span>
+          <div class="chips" id="fGroup"></div>
+        </div>
+        <div class="ctl-row">
+          <span class="ctl-lab">Status</span>
+          <div class="chips" id="fStatus"></div>
+        </div>
+        <div class="ctl-row">
+          <span class="ctl-lab">Agency</span>
+          <div class="chips" id="fSource"></div>
+        </div>
       </div>
     </div>
+
+    <div class="active-filters" id="activeFilters" hidden></div>
 
     <div class="stage"><svg id="dots" role="img" aria-label="Interactive grid of 1,643 endangered and threatened U.S. species"></svg></div>
 
@@ -221,12 +280,12 @@
 </div>
 
 <!-- 02 WORD -->
-<section>
+<section id="changed">
   <div class="wrap">
     <div class="secnum"><span class="n">02</span><span class="eyebrow mute">The pivot</span><span class="ln"></span></div>
     <h2>The fight turns on the meaning of one word.</h2>
     <p>The ESA makes it illegal to “take” endangered wildlife, and similar protections apply to many threatened animals. Congress defined <em>take</em> to include <em>harm</em>, but never defined harm itself.</p>
-    <p>Since 1975 — and in its current form since 1981 — Fish &amp; Wildlife Service regulations have said that significant habitat modification can count as harm when it actually kills or injures wildlife by disrupting essential behavior such as breeding, feeding, or sheltering. NOAA adopted a similar definition in 1999.</p>
+    <p>Since 1975 — and in its current form since 1981 — Fish &amp; Wildlife Service regulations have said that significant habitat modification can count as harm when it actually kills or injures wildlife by disrupting essential behavior such as breeding, feeding, or sheltering. NOAA adopted a similar definition in 1999.<a class="cite" href="#src-1" title="Sources: The rule">1</a></p>
     <p>The new rule removes both definitions and adopts a much narrower reading. The agencies now say habitat modification or degradation does not qualify as “take,” and that take requires an affirmative act directed immediately and intentionally at a particular animal.</p>
     <div class="pull old"><span class="lab">Until September 13, 2026</span><p style="margin:0">Significant habitat modification or degradation can count as “harm” when it actually kills or injures wildlife by significantly impairing essential behavioral patterns.</p></div>
     <div class="pull new"><span class="lab">Beginning September 14, 2026</span><p style="margin:0">The regulatory definition is removed. The word “harm” remains in the Act, but the agencies say habitat modification or degradation does not qualify as “take.”</p></div>
@@ -235,11 +294,11 @@
 </section>
 
 <!-- 03 RANGE -->
-<section>
+<section id="habitat">
   <div class="wrap">
     <div class="secnum"><span class="n">03</span><span class="eyebrow mute">What's already gone</span><span class="ln"></span></div>
     <h2>For some listed species, almost all of their habitat is already gone.</h2>
-    <p>Each outer square represents a species' historic range — or a particular habitat it depends on. The filled square shows the remaining share reported by the source. Because the figures come from different sources, years, and measures — total range, a particular ecosystem or habitat, or population abundance — they are not directly comparable, and the ordering here is not a ranking.</p>
+    <p>Each outer square represents a species' historic range — or a particular habitat it depends on. The filled square shows the remaining share reported by the source. Because the figures come from different sources, years, and measures — total range, a particular ecosystem or habitat, or population abundance — they are not directly comparable, and the ordering here is not a ranking.<a class="cite" href="#src-3" title="Sources: Habitat-loss figures">3</a></p>
     <p>The figures do not all measure the same thing. Some track total geographic range; others track a particular ecosystem or habitat type. Together, they show how little room some species have left.</p>
   </div>
   <div class="wrap wide">
@@ -252,7 +311,7 @@
 </section>
 
 <!-- 04 RECOVERY -->
-<section>
+<section id="recovery">
   <div class="wrap">
     <div class="secnum"><span class="n">04</span><span class="eyebrow mute">What recovery takes</span><span class="ln"></span></div>
     <h2>Recovery begins with somewhere to live.</h2>
@@ -265,12 +324,12 @@
     <div class="slopes reveal" id="slopes"></div>
   </div>
   <div class="wrap">
-    <p class="slope-cap">Each chart runs from a documented low to the latest available count. Four species shown here — the bald eagle, peregrine falcon, Aleutian cackling goose, and island fox — recovered enough to be removed from the federal list. Counts are wild individuals unless a card notes nesting pairs.</p>
+    <p class="slope-cap">Each chart runs from a documented low to the latest available count. Four species shown here — the bald eagle, peregrine falcon, Aleutian cackling goose, and island fox — recovered enough to be removed from the federal list. Counts are wild individuals unless a card notes nesting pairs.<a class="cite" href="#src-4" title="Sources: Recovery figures">4</a></p>
   </div>
 </section>
 
 <!-- 05 BALANCE -->
-<section class="balance">
+<section class="balance" id="debate">
   <div class="wrap">
     <div class="secnum"><span class="n">05</span><span class="eyebrow mute">In fairness</span><span class="ln"></span></div>
     <div class="two">
@@ -283,21 +342,21 @@
         <p>Critics argue that this legal distinction does not reflect how habitat loss kills wildlife.</p>
         <p>A nesting tree can be felled, a spawning stream drained, or a migration corridor cut off without anyone touching the animal itself. Under the old rule, habitat damage counted as harm only when it actually killed or injured wildlife. It was never a blanket ban on land use.</p>
         <p>Other habitat protections remain, but they do not cover the same ground. Critical-habitat review generally requires federal action, funding, or a federal permit.</p>
-        <p>The ESA's record is also hard to dismiss: fewer than one percent of listed species have gone extinct after receiving its protection.</p>
+        <p>The ESA's record is also hard to dismiss: fewer than one percent of listed species have gone extinct after receiving its protection.<a class="cite" href="#src-4" title="Sources: Recovery figures">4</a></p>
         <p>A coalition of conservation groups filed a federal lawsuit on July 14, challenging the new rule as contrary to the ESA and decades of legal precedent.</p></div>
     </div>
   </div>
 </section>
 
-<section class="close">
+<section class="close" id="action">
   <div class="wrap">
     <div class="eyebrow" style="margin-bottom:1.4em">The story isn't finished</div>
     <h2>The rule is final.<br>The fight over it isn't.</h2>
     <p>The public comment period has closed. The rule is scheduled to take effect on September 14, unless a court blocks it. Conservation groups have filed suit. Congress can act, and states can keep or strengthen protections under their own laws.</p>
 
-    <div class="eyebrow mute" style="margin:2.4em 0 1em">What you can do now</div>
-
-    <div class="cta">
+    <div class="action-module">
+      <div class="eyebrow mute" style="margin:0 0 1.1em">What you can do now</div>
+      <div class="cta">
       <h3>Contact your members of Congress</h3>
       <p class="why">Ask them to restore the longstanding definition of “harm,” including significant habitat modification that actually kills or injures protected wildlife.</p>
       <div class="msg">
@@ -313,6 +372,7 @@
       <a href="https://www.federalregister.gov/documents/2026/07/14/2026-14195/rescinding-the-definition-of-harm-under-the-endangered-species-act" target="_blank" rel="noopener"><span>Read the final rule</span><span class="arw">↗</span></a>
       <a id="shareBrief" href="https://habitatfiles.org/" rel="noopener"><span>Share this brief</span><span class="arw">↗</span></a>
     </div>
+    </div>
     <p class="close-note" style="margin-top:1.6em;color:var(--ink-soft);font-size:.82rem">Legal challenge filed July 14, 2026 — Case No. 2:26-cv-02474, U.S. District Court, Western District of Washington.</p>
 
     <p style="margin-top:2em">Habitat is home. What the law protects next is still being decided.</p>
@@ -320,29 +380,51 @@
 </section>
 
 <hr class="rule">
-<footer>
+<footer id="sources">
   <div class="wrap">
     <div class="eyebrow">Sources &amp; method</div>
+    <p class="src-intro">Every figure in this piece is traceable to a public source. Expand a section for the underlying data and choices — the small numbered markers beside the charts and claims jump straight to the matching section.</p>
 
-    <p><strong>The rule.</strong> Rescission of the regulatory definition of “harm” — announced July 10, 2026, published in the <a href="https://www.federalregister.gov/documents/2026/07/14/2026-14195/rescinding-the-definition-of-harm-under-the-endangered-species-act" target="_blank" rel="noopener">Federal Register</a> July 14, effective <strong>September 14, 2026</strong>. The notice confirms Section 7 consultation stays intact (agencies must still avoid jeopardy and adverse modification of critical habitat) and that Section 10 incidental-take permits will no longer address habitat modification. Announcement: <a href="https://www.doi.gov/pressreleases/department-interior-restores-clear-esa-enforcement-rescinding-misguided-harm" target="_blank" rel="noopener">U.S. Dept. of the Interior</a> (official; supporters' framing). Analysis: <a href="https://news.bloomberglaw.com/environment-and-energy/trump-cuts-species-harm-definition-allows-habitat-destruction" target="_blank" rel="noopener">Bloomberg Law</a> · <a href="https://eelp.law.harvard.edu/tracker/endangered-species-act-regulations/" target="_blank" rel="noopener">Harvard EELP tracker</a> · supporters' view / jobs argument: <a href="https://www.foxnews.com/politics/trump-admin-scraps-weaponized-wildlife-rule-became-burden-american-families-businesses-burgum" target="_blank" rel="noopener">Fox News</a>.</p>
+    <details class="srcsec" id="src-1" open>
+      <summary><span class="srcnum">1</span> The rule &amp; the legal challenge</summary>
+      <div class="srcbody">
+        <p><strong>The rule.</strong> Rescission of the regulatory definition of “harm” — announced July 10, 2026, published in the <a href="https://www.federalregister.gov/documents/2026/07/14/2026-14195/rescinding-the-definition-of-harm-under-the-endangered-species-act" target="_blank" rel="noopener">Federal Register</a> July 14, effective <strong>September 14, 2026</strong>. The notice confirms Section 7 consultation stays intact (agencies must still avoid jeopardy and adverse modification of critical habitat) and that Section 10 incidental-take permits will no longer address habitat modification. Announcement: <a href="https://www.doi.gov/pressreleases/department-interior-restores-clear-esa-enforcement-rescinding-misguided-harm" target="_blank" rel="noopener">U.S. Dept. of the Interior</a> (official; supporters' framing). Analysis: <a href="https://news.bloomberglaw.com/environment-and-energy/trump-cuts-species-harm-definition-allows-habitat-destruction" target="_blank" rel="noopener">Bloomberg Law</a> · <a href="https://eelp.law.harvard.edu/tracker/endangered-species-act-regulations/" target="_blank" rel="noopener">Harvard EELP tracker</a> · supporters' view / jobs argument: <a href="https://www.foxnews.com/politics/trump-admin-scraps-weaponized-wildlife-rule-became-burden-american-families-businesses-burgum" target="_blank" rel="noopener">Fox News</a>.</p>
+        <p><strong>The legal challenge.</strong> On July 14, 2026, Earthjustice and a coalition (Center for Biological Diversity, Sierra Club, WildEarth Guardians, Columbia Riverkeeper, Conservation Law Foundation, Conservation Northwest, Friends of the Wild Swan, Oregon Wild, Swan View Coalition) filed suit in federal district court in Seattle challenging the rescission — <a href="https://earthjustice.org/press/2026/lawsuit-seeks-to-protect-americas-wildlife-from-trump-administration" target="_blank" rel="noopener">Earthjustice</a> · <a href="https://www.npr.org/2026/07/14/nx-s1-5891858/trump-esa-harm-endangered-species-act-threatened-lawsuit" target="_blank" rel="noopener">NPR</a>. The complaint invokes <em>Babbitt v. Sweet Home</em> (1995), in which the Supreme Court upheld the habitat-based reading of “harm.”</p>
+      </div>
+    </details>
 
-    <p><strong>The legal challenge.</strong> On July 14, 2026, Earthjustice and a coalition (Center for Biological Diversity, Sierra Club, WildEarth Guardians, Columbia Riverkeeper, Conservation Law Foundation, Conservation Northwest, Friends of the Wild Swan, Oregon Wild, Swan View Coalition) filed suit in federal district court in Seattle challenging the rescission — <a href="https://earthjustice.org/press/2026/lawsuit-seeks-to-protect-americas-wildlife-from-trump-administration" target="_blank" rel="noopener">Earthjustice</a> · <a href="https://www.npr.org/2026/07/14/nx-s1-5891858/trump-esa-harm-endangered-species-act-threatened-lawsuit" target="_blank" rel="noopener">NPR</a>. The complaint invokes <em>Babbitt v. Sweet Home</em> (1995), in which the Supreme Court upheld the habitat-based reading of “harm.”</p>
+    <details class="srcsec" id="src-2">
+      <summary><span class="srcnum">2</span> Species explorer</summary>
+      <div class="srcbody">
+        <p><strong>The species grid &amp; taxonomic composition.</strong> Every dot is one of <strong>1,643</strong> distinct U.S. ESA-listed species, drawn from two authoritative datasets. <strong>1,594</strong> under the U.S. Fish &amp; Wildlife Service come from the FWS ECOS <a href="https://ecos.fws.gov/ecp/report/species-listings-by-tax-group-totals" target="_blank" rel="noopener">species-listings-by-taxonomic-group</a> reports (14 group files, deduplicated from listing-level rows to distinct species). <strong>49</strong> marine species come from the <a href="https://www.fisheries.noaa.gov/species-directory/threatened-endangered" target="_blank" rel="noopener">NOAA Fisheries species directory</a> — the U.S.-range marine species NOAA manages, after removing 9 co-managed species (sea turtles, Atlantic salmon, Atlantic &amp; Gulf sturgeon) already counted in the FWS data. Common names, scientific names, groups and current status are as recorded by each agency; the "Source" filter shows which. The NOAA data was verified row-by-row against the live directory (105 species / 174 listings — a 100% match).</p>
+        <p><strong>Why the counts look different across sources.</strong> NOAA's directory reports "165 species," but that figure counts each <em>listing</em> separately — many species (Chinook salmon, steelhead, green turtle) are listed as several distinct population segments or evolutionarily significant units. Those 165 listings correspond to only <strong>105 distinct species</strong>; the grid counts species, not listings. NOAA's own summary sentence (80 endangered / 85 threatened; 66 foreign) also differs slightly from its live table, which tallies to 81 / 84 and 69 foreign — the table (used here) is the more current of the two. The explorer excludes 3 "candidate" entries (not yet listed, so not protected) and 6 experimental populations (reintroduced runs of already-listed Chinook and steelhead, which would double-count).</p>
+        <p><strong>Names, scientific names &amp; status.</strong> Every name comes verbatim from the source agency's data; where a species had multiple listing entries (rangewide plus DPS/ESU or experimental populations), the strongest rangewide status is shown, grouped as Endangered, Threatened, or Threatened by similarity of appearance. Scientific names follow the official record, which sometimes reflects the taxonomy in effect at the time of listing (e.g. <em>Physeter catodon</em> for the sperm whale). Recently <strong>delisted-after-recovery</strong> species are absent because they are no longer on the list — the wood stork (<a href="https://www.fws.gov/press-release/2026-02/wood-stork-delisted" target="_blank" rel="noopener">delisted March 2026</a>), bald eagle, Kirtland's warbler and snail darter — as is the monarch butterfly, which is only <em>proposed</em>, not yet listed (<a href="https://www.fws.gov/press-release/2024-12/monarch-butterfly-proposed-endangered-species-act-protection" target="_blank" rel="noopener">FWS</a>).</p>
+      </div>
+    </details>
 
-    <p><strong>The species grid &amp; taxonomic composition.</strong> Every dot is one of <strong>1,643</strong> distinct U.S. ESA-listed species, drawn from two authoritative datasets. <strong>1,594</strong> under the U.S. Fish &amp; Wildlife Service come from the FWS ECOS <a href="https://ecos.fws.gov/ecp/report/species-listings-by-tax-group-totals" target="_blank" rel="noopener">species-listings-by-taxonomic-group</a> reports (14 group files, deduplicated from listing-level rows to distinct species). <strong>49</strong> marine species come from the <a href="https://www.fisheries.noaa.gov/species-directory/threatened-endangered" target="_blank" rel="noopener">NOAA Fisheries species directory</a> — the U.S.-range marine species NOAA manages, after removing 9 co-managed species (sea turtles, Atlantic salmon, Atlantic &amp; Gulf sturgeon) already counted in the FWS data. Common names, scientific names, groups and current status are as recorded by each agency; the "Source" filter shows which. The NOAA data was verified row-by-row against the live directory (105 species / 174 listings — a 100% match).</p>
+    <details class="srcsec" id="src-3">
+      <summary><span class="srcnum">3</span> Habitat-loss figures</summary>
+      <div class="srcbody">
+        <p><strong>Range- and habitat-loss figures (shrinking squares).</strong> Each shaded square is scaled by area to the share of a species' historic range — or a specific habitat it depends on — still remaining. The figures come from different sources, baselines, and measures (total geographic range, a particular habitat type, or population abundance), so they are snapshots, not a standardized ranking. Red wolf: &gt;99% of historic range lost since ~1500 (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5541531/" target="_blank" rel="noopener">Wolf &amp; Ripple, <em>Royal Society Open Science</em>, 2017</a>). Florida panther: occupies less than 5% of its historic range — &gt;95% lost (<a href="https://www.fws.gov/sites/default/files/documents/2024-04/1124.pdf" target="_blank" rel="noopener">FWS Florida Panther Recovery Plan</a>). Ocelot (U.S.): over 95% of dense thornscrub in Texas's Lower Rio Grande Valley converted to other uses (<a href="https://www.fws.gov/species/ocelot-leopardus-pardalis" target="_blank" rel="noopener">FWS Ocelot 5-Year Review, 2025</a>). Grizzly bear: reduced to ~2% of its former range in the 48 contiguous states by the 1930s — ~98% lost, though populations have since expanded from that low (<a href="https://www.fws.gov/species/grizzly-bear-ursus-arctos-horribilis" target="_blank" rel="noopener">FWS</a>). Attwater's prairie-chicken: less than 1% of the historic ~6 million acres of Gulf coastal prairie remains — &gt;99% lost (<a href="https://www.fws.gov/species/attwaters-greater-prairie-chicken-tympanuchus-cupido-attwateri" target="_blank" rel="noopener">FWS</a>). Red-cockaded woodpecker: the longleaf-pine ecosystem fell from 90M+ to about 5.2M acres — ~94% lost, and ~97% at its ~3M-acre low point (<a href="https://www.fws.gov/story/2024-05/june-2024-bird-month-red-cockaded-woodpecker" target="_blank" rel="noopener">FWS, 2024</a>). Northern spotted owl: roughly 85% of old-growth/old-forest habitat lost; FWS's 1990 listing cited a 60–88% decline since the early 1800s (<a href="https://www.fws.gov/species/northern-spotted-owl-strix-occidentalis-caurina" target="_blank" rel="noopener">FWS</a>). Elkhorn coral: population declined ~97% since the early 1980s and is now under 3% of its former abundance — a population measure, not reef cover (<a href="https://www.fisheries.noaa.gov/species/elkhorn-coral" target="_blank" rel="noopener">NOAA Fisheries</a>). Two earlier examples were dropped for weak sourcing: the gray wolf's "90% of range" traces only to advocacy material, and the Florida scrub-jay's "90%" describes a population decline rather than habitat loss.</p>
+        <p><strong>Habitat loss as a recurring threat.</strong> The most frequently cited pressure across ESA- and IUCN-listed species (about 85% in aggregate analyses; shown here only as a qualitative pattern, not a per-species value): <a href="https://academic.oup.com/bioscience/article/75/7/524/8115311" target="_blank" rel="noopener"><em>BioScience</em> — U.S. Imperiled Species and the Five Drivers of Biodiversity Loss</a> · <a href="https://conbio.onlinelibrary.wiley.com/doi/full/10.1111/csp2.12670" target="_blank" rel="noopener"><em>Conservation Science and Practice</em> — "The greatest threats to species"</a> · <a href="https://esajournals.onlinelibrary.wiley.com/doi/10.1002/fee.2177" target="_blank" rel="noopener">Eichenwald et al. 2020, <em>Frontiers in Ecology</em></a>.</p>
+      </div>
+    </details>
 
-    <p><strong>Why the counts look different across sources.</strong> NOAA's directory reports "165 species," but that figure counts each <em>listing</em> separately — many species (Chinook salmon, steelhead, green turtle) are listed as several distinct population segments or evolutionarily significant units. Those 165 listings correspond to only <strong>105 distinct species</strong>; the grid counts species, not listings. NOAA's own summary sentence (80 endangered / 85 threatened; 66 foreign) also differs slightly from its live table, which tallies to 81 / 84 and 69 foreign — the table (used here) is the more current of the two. The explorer excludes 3 "candidate" entries (not yet listed, so not protected) and 6 experimental populations (reintroduced runs of already-listed Chinook and steelhead, which would double-count).</p>
+    <details class="srcsec" id="src-4">
+      <summary><span class="srcnum">4</span> Recovery figures</summary>
+      <div class="srcbody">
+        <p><strong>Recovery figures (slope charts).</strong> Low → latest counts, from agency and peer-reviewed sources. Bald eagle 417→71,400 nesting pairs, 1963→2019, delisted 2007 (<a href="https://www.fws.gov/press-release/2021-03/americas-bald-eagle-population-continues-soar" target="_blank" rel="noopener">FWS</a>) · whooping crane 21→557 wild, 1941→2025 (<a href="https://www.fws.gov/species/whooping-crane-grus-americana" target="_blank" rel="noopener">FWS</a>) · California condor 22→392 wild, 1982→2025 (<a href="https://www.fws.gov/program/california-condor-recovery" target="_blank" rel="noopener">FWS</a>) · Aleutian cackling goose 790→&gt;30,000, 1975→2001, delisted (now &gt;100,000 — <a href="https://www.fws.gov/story/2000-07/aleutian-canada-goose" target="_blank" rel="noopener">FWS</a>) · peregrine falcon 324→~3,000 nesting pairs, 1975→2006, delisted 1999 (<a href="https://www.fws.gov/story/2000-08/peregrine-falcon-back" target="_blank" rel="noopener">FWS</a>) · Florida manatee 1,267→≥8,350, 1991→2024 (<a href="https://myfwc.com/research/manatee/research/population-monitoring/synoptic-surveys/" target="_blank" rel="noopener">FWC</a>) · Greater Yellowstone grizzly 136→965, 1975→2022 (<a href="https://www.nps.gov/yell/learn/demographic-changes-in-yellowstones-grizzly-bear-population.htm" target="_blank" rel="noopener">NPS</a>) · San Miguel island fox ~15→~700, 1999→2016, delisted (<a href="https://www.fws.gov/press-release/2016-08/interior-announces-fastest-successful-recovery-endangered-species-act-0" target="_blank" rel="noopener">FWS</a>) · black-footed ferret 18→~350 wild, 1981→2025 (<a href="https://www.fws.gov/species/black-footed-ferret-mustela-nigripes" target="_blank" rel="noopener">FWS</a>).</p>
+        <p><strong>“Fewer than one percent have gone extinct.”</strong> Federal agencies credit the ESA with preventing the extinction of about 99% of listed species. NOAA Fisheries states that “less than 1 percent of the species listed under the act have been lost,” and the U.S. Fish &amp; Wildlife Service says conservation under the Act has “been successful in preventing extinction for 99 percent of the species that are listed.” This figure measures extinction <em>prevention</em>, not full recovery — relatively few species have recovered enough to be formally delisted, a point critics emphasize. <a href="https://www.fisheries.noaa.gov/insight/recovery-endangered-and-threatened-species" target="_blank" rel="noopener">NOAA Fisheries</a> · <a href="https://www.fws.gov/story/why-save-species" target="_blank" rel="noopener">U.S. Fish &amp; Wildlife Service</a> · <a href="https://ballotpedia.org/Success_rate_of_the_Endangered_Species_Act" target="_blank" rel="noopener">Ballotpedia</a> (recovery counterpoint).</p>
+      </div>
+    </details>
 
-    <p><strong>Habitat loss as a recurring threat.</strong> The most frequently cited pressure across ESA- and IUCN-listed species (about 85% in aggregate analyses; shown here only as a qualitative pattern, not a per-species value): <a href="https://academic.oup.com/bioscience/article/75/7/524/8115311" target="_blank" rel="noopener"><em>BioScience</em> — U.S. Imperiled Species and the Five Drivers of Biodiversity Loss</a> · <a href="https://conbio.onlinelibrary.wiley.com/doi/full/10.1111/csp2.12670" target="_blank" rel="noopener"><em>Conservation Science and Practice</em> — "The greatest threats to species"</a> · <a href="https://esajournals.onlinelibrary.wiley.com/doi/10.1002/fee.2177" target="_blank" rel="noopener">Eichenwald et al. 2020, <em>Frontiers in Ecology</em></a>.</p>
+    <details class="srcsec" id="src-5">
+      <summary><span class="srcnum">5</span> Limitations &amp; editorial choices</summary>
+      <div class="srcbody">
+        <p>An advocacy brief. No estimated or synthetic data remains in the explorer: every one of the 1,643 dots is a distinct ESA-listed species carrying its real taxonomic group, common name, scientific name, current status and managing agency, and the per-group counts are exact tallies from the FWS and NOAA datasets. Two caveats elsewhere in the piece: the "fewer than 1%" figure measures extinction prevention, not full recovery — relatively few listed species have recovered enough to be delisted; and the range-loss squares draw on different sources, baselines, and measures, so they are snapshots rather than a standardized ranking.</p>
+      </div>
+    </details>
 
-    <p><strong>“Fewer than one percent have gone extinct.”</strong> Federal agencies credit the ESA with preventing the extinction of about 99% of listed species. NOAA Fisheries states that “less than 1 percent of the species listed under the act have been lost,” and the U.S. Fish &amp; Wildlife Service says conservation under the Act has “been successful in preventing extinction for 99 percent of the species that are listed.” This figure measures extinction <em>prevention</em>, not full recovery — relatively few species have recovered enough to be formally delisted, a point critics emphasize. <a href="https://www.fisheries.noaa.gov/insight/recovery-endangered-and-threatened-species" target="_blank" rel="noopener">NOAA Fisheries</a> · <a href="https://www.fws.gov/story/why-save-species" target="_blank" rel="noopener">U.S. Fish &amp; Wildlife Service</a> · <a href="https://ballotpedia.org/Success_rate_of_the_Endangered_Species_Act" target="_blank" rel="noopener">Ballotpedia</a> (recovery counterpoint).</p>
-
-    <p><strong>Names, scientific names &amp; status.</strong> Every name comes verbatim from the source agency's data; where a species had multiple listing entries (rangewide plus DPS/ESU or experimental populations), the strongest rangewide status is shown, grouped as Endangered, Threatened, or Threatened by similarity of appearance. Scientific names follow the official record, which sometimes reflects the taxonomy in effect at the time of listing (e.g. <em>Physeter catodon</em> for the sperm whale). Recently <strong>delisted-after-recovery</strong> species are absent because they are no longer on the list — the wood stork (<a href="https://www.fws.gov/press-release/2026-02/wood-stork-delisted" target="_blank" rel="noopener">delisted March 2026</a>), bald eagle, Kirtland's warbler and snail darter — as is the monarch butterfly, which is only <em>proposed</em>, not yet listed (<a href="https://www.fws.gov/press-release/2024-12/monarch-butterfly-proposed-endangered-species-act-protection" target="_blank" rel="noopener">FWS</a>).</p>
-
-    <p><strong>Recovery figures (slope charts).</strong> Low → latest counts, from agency and peer-reviewed sources. Bald eagle 417→71,400 nesting pairs, 1963→2019, delisted 2007 (<a href="https://www.fws.gov/press-release/2021-03/americas-bald-eagle-population-continues-soar" target="_blank" rel="noopener">FWS</a>) · whooping crane 21→557 wild, 1941→2025 (<a href="https://www.fws.gov/species/whooping-crane-grus-americana" target="_blank" rel="noopener">FWS</a>) · California condor 22→392 wild, 1982→2025 (<a href="https://www.fws.gov/program/california-condor-recovery" target="_blank" rel="noopener">FWS</a>) · Aleutian cackling goose 790→&gt;30,000, 1975→2001, delisted (now &gt;100,000 — <a href="https://www.fws.gov/story/2000-07/aleutian-canada-goose" target="_blank" rel="noopener">FWS</a>) · peregrine falcon 324→~3,000 nesting pairs, 1975→2006, delisted 1999 (<a href="https://www.fws.gov/story/2000-08/peregrine-falcon-back" target="_blank" rel="noopener">FWS</a>) · Florida manatee 1,267→≥8,350, 1991→2024 (<a href="https://myfwc.com/research/manatee/research/population-monitoring/synoptic-surveys/" target="_blank" rel="noopener">FWC</a>) · Greater Yellowstone grizzly 136→965, 1975→2022 (<a href="https://www.nps.gov/yell/learn/demographic-changes-in-yellowstones-grizzly-bear-population.htm" target="_blank" rel="noopener">NPS</a>) · San Miguel island fox ~15→~700, 1999→2016, delisted (<a href="https://www.fws.gov/press-release/2016-08/interior-announces-fastest-successful-recovery-endangered-species-act-0" target="_blank" rel="noopener">FWS</a>) · black-footed ferret 18→~350 wild, 1981→2025 (<a href="https://www.fws.gov/species/black-footed-ferret-mustela-nigripes" target="_blank" rel="noopener">FWS</a>).</p>
-
-    <p><strong>Range- and habitat-loss figures (shrinking squares).</strong> Each shaded square is scaled by area to the share of a species' historic range — or a specific habitat it depends on — still remaining. The figures come from different sources, baselines, and measures (total geographic range, a particular habitat type, or population abundance), so they are snapshots, not a standardized ranking. Red wolf: &gt;99% of historic range lost since ~1500 (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5541531/" target="_blank" rel="noopener">Wolf &amp; Ripple, <em>Royal Society Open Science</em>, 2017</a>). Florida panther: occupies less than 5% of its historic range — &gt;95% lost (<a href="https://www.fws.gov/sites/default/files/documents/2024-04/1124.pdf" target="_blank" rel="noopener">FWS Florida Panther Recovery Plan</a>). Ocelot (U.S.): over 95% of dense thornscrub in Texas's Lower Rio Grande Valley converted to other uses (<a href="https://www.fws.gov/species/ocelot-leopardus-pardalis" target="_blank" rel="noopener">FWS Ocelot 5-Year Review, 2025</a>). Grizzly bear: reduced to ~2% of its former range in the 48 contiguous states by the 1930s — ~98% lost, though populations have since expanded from that low (<a href="https://www.fws.gov/species/grizzly-bear-ursus-arctos-horribilis" target="_blank" rel="noopener">FWS</a>). Attwater's prairie-chicken: less than 1% of the historic ~6 million acres of Gulf coastal prairie remains — &gt;99% lost (<a href="https://www.fws.gov/species/attwaters-greater-prairie-chicken-tympanuchus-cupido-attwateri" target="_blank" rel="noopener">FWS</a>). Red-cockaded woodpecker: the longleaf-pine ecosystem fell from 90M+ to about 5.2M acres — ~94% lost, and ~97% at its ~3M-acre low point (<a href="https://www.fws.gov/story/2024-05/june-2024-bird-month-red-cockaded-woodpecker" target="_blank" rel="noopener">FWS, 2024</a>). Northern spotted owl: roughly 85% of old-growth/old-forest habitat lost; FWS's 1990 listing cited a 60–88% decline since the early 1800s (<a href="https://www.fws.gov/species/northern-spotted-owl-strix-occidentalis-caurina" target="_blank" rel="noopener">FWS</a>). Elkhorn coral: population declined ~97% since the early 1980s and is now under 3% of its former abundance — a population measure, not reef cover (<a href="https://www.fisheries.noaa.gov/species/elkhorn-coral" target="_blank" rel="noopener">NOAA Fisheries</a>). Two earlier examples were dropped for weak sourcing: the gray wolf's "90% of range" traces only to advocacy material, and the Florida scrub-jay's "90%" describes a population decline rather than habitat loss.</p>
-
-    <p style="margin-top:1.1em;color:var(--faint)">An advocacy brief. No estimated or synthetic data remains in the explorer: every one of the 1,643 dots is a distinct ESA-listed species carrying its real taxonomic group, common name, scientific name, current status and managing agency, and the per-group counts are exact tallies from the FWS and NOAA datasets. Two caveats elsewhere in the piece: the "fewer than 1%" figure measures extinction prevention, not full recovery — relatively few listed species have recovered enough to be delisted; and the range-loss squares draw on different sources, baselines, and measures, so they are snapshots rather than a standardized ranking.</p>
     <p style="margin-top:2em;padding-top:1.2em;border-top:1px solid var(--hair);font-family:'SF Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.05em;color:var(--ink-soft)">habitatfiles.org&nbsp;&nbsp;·&nbsp;&nbsp;The Habitat Files&nbsp;&nbsp;·&nbsp;&nbsp;a data-driven brief on the Endangered Species Act “harm” rule</p>
     <p style="margin-top:1.4em;font-size:.82rem;line-height:1.6;color:var(--ink-soft)">The Habitat Files is an independent public-interest project.<br>Research, writing, data, design, and development by <a href="https://izgiuygur.com" target="_blank" rel="noopener">Izgi Uygur</a>.</p>
   </div>
@@ -395,7 +477,7 @@
   const state={arrange:"none",group:new Set(),status:new Set(),source:new Set(),search:""};
 
   // ---- controls ----
-  const arrangeOpts=[["none","Grid"],["group","By group"],["status","By status"],["source","By source"],["kingdom","Plants vs animals"]];
+  const arrangeOpts=[["none","Grid"],["group","By group"],["status","By status"],["source","By agency"]];
   const ac=document.getElementById("arrangeChips");
   ac.innerHTML=arrangeOpts.map(o=>`<button class="chip grp${o[0]==="none"?" on":""}" data-a="${o[0]}">${o[1]}</button>`).join("");
   ac.addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;
@@ -421,13 +503,39 @@
     const v=b.dataset.v;if(state.source.has(v)){state.source.delete(v);b.classList.remove("on");}else{state.source.add(v);b.classList.add("on");}
     applyFilter();});
 
-  document.getElementById("clearBtn").addEventListener("click",()=>{
-    state.group.clear();state.status.clear();state.source.clear();state.search="";
-    document.getElementById("search").value="";
-    fg.querySelectorAll(".chip.on").forEach(c=>c.classList.remove("on"));
-    fs2.querySelectorAll(".chip.on").forEach(c=>c.classList.remove("on"));
-    fsrc.querySelectorAll(".chip.on").forEach(c=>c.classList.remove("on"));
-    applyFilter();
+  // filter panel toggle
+  const fToggle=document.getElementById("filterToggle"),fPanel=document.getElementById("filterPanel"),fCount=document.getElementById("filterCount");
+  fToggle.addEventListener("click",()=>{
+    const willOpen=fPanel.hasAttribute("hidden");
+    if(willOpen)fPanel.removeAttribute("hidden");else fPanel.setAttribute("hidden","");
+    fToggle.setAttribute("aria-expanded",willOpen?"true":"false");
+    fToggle.classList.toggle("on",willOpen);
+  });
+
+  // active filter chips (above the grid)
+  const activeWrap=document.getElementById("activeFilters");
+  const STLAB={E:"Endangered",T:"Threatened",S:"Sim. of appearance"};
+  const labelFor=(k,v)=>k==="status"?(STLAB[v]||v):v;
+  function syncChips(){
+    fg.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",state.group.has(c.dataset.v)));
+    fs2.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",state.status.has(c.dataset.v)));
+    fsrc.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",state.source.has(c.dataset.v)));
+  }
+  function renderActive(){
+    const items=[];
+    state.group.forEach(v=>items.push(["group",v]));
+    state.status.forEach(v=>items.push(["status",v]));
+    state.source.forEach(v=>items.push(["source",v]));
+    if(!items.length){activeWrap.setAttribute("hidden","");activeWrap.innerHTML="";return;}
+    activeWrap.removeAttribute("hidden");
+    activeWrap.innerHTML=items.map(([k,v])=>`<button class="afchip" data-k="${k}" data-v="${v}">${labelFor(k,v)} <span class="x">✕</span></button>`).join("")
+      +`<button class="afchip clear" data-k="clear">Clear all</button>`;
+  }
+  activeWrap.addEventListener("click",e=>{
+    const b=e.target.closest(".afchip");if(!b)return;
+    if(b.dataset.k==="clear"){state.group.clear();state.status.clear();state.source.clear();state.search="";const s=document.getElementById("search");if(s)s.value="";}
+    else state[b.dataset.k].delete(b.dataset.v);
+    syncChips();applyFilter();
   });
 
   const searchEl=document.getElementById("search");
@@ -520,6 +628,9 @@
     if(vis===N){statN.textContent="1,643 species";statC.textContent=plantTotal+" plants and lichens · "+animalTotal+" animals";}
     else{statN.textContent=vis.toLocaleString()+" of 1,643";
       statC.textContent=(state.search?('matches for “'+state.search+'”'):'shown with current filters');}
+    renderActive();
+    const nA=state.group.size+state.status.size+state.source.size;
+    fCount.textContent=nA?(" · "+nA):"";
   }
 
   // tooltip
@@ -630,6 +741,27 @@
     if(navigator.share){e.preventDefault();navigator.share({title:"The Habitat Files",text:"A data-driven brief on the Endangered Species Act “harm” rule.",url}).catch(()=>{});}
     else if(navigator.clipboard){e.preventDefault();navigator.clipboard.writeText(url).then(()=>{const o=lbl.textContent;lbl.textContent="Link copied ✓";setTimeout(()=>lbl.textContent=o,2200);}).catch(()=>{});}
   });
+})();
+</script>
+<script>
+(function(){
+  var nav=document.getElementById("secnav");if(!nav)return;
+  var links=[].slice.call(nav.querySelectorAll("a")), map={};
+  links.forEach(function(a){map[a.getAttribute("href").slice(1)]=a;});
+  var secs=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+  var mast=document.querySelector(".mast"), ticking=false;
+  function update(){
+    ticking=false;
+    nav.classList.toggle("show", window.scrollY > (mast?mast.offsetHeight-70:400));
+    var y=window.scrollY + window.innerHeight*0.4, cur=null;
+    for(var i=0;i<secs.length;i++){ if(secs[i].getBoundingClientRect().top+window.scrollY <= y) cur=secs[i]; }
+    links.forEach(function(a){a.classList.remove("active");});
+    if(cur&&map[cur.id]) map[cur.id].classList.add("active");
+  }
+  addEventListener("scroll",function(){if(!ticking){ticking=true;requestAnimationFrame(update);}},{passive:true});
+  addEventListener("resize",update);update();
+  function openSrc(){var h=location.hash;if(h&&h.length>1){var d=document.querySelector(h+".srcsec");if(d)d.open=true;}}
+  addEventListener("hashchange",openSrc);openSrc();
 })();
 </script>
 </body>
