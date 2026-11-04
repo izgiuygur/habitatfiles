@@ -158,6 +158,7 @@
 
   footer{padding:9vh 0;font-size:.82rem;color:var(--ink-soft)}
   footer .eyebrow{margin-bottom:16px}
+  footer h2.src-h{font-size:.68rem;letter-spacing:.24em;line-height:inherit;margin:0 0 16px}
   footer p{font-size:.8rem;line-height:1.55;margin-bottom:.7em}
   footer a{color:var(--accent);text-decoration:none}footer a:hover{text-decoration:underline}
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
@@ -167,6 +168,27 @@
   section[id],footer[id]{scroll-margin-top:64px}
   #secnav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(246,244,238,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--hair);transform:translateY(-100%);opacity:0;transition:transform .25s ease,opacity .25s ease}
   #secnav.show{transform:translateY(0);opacity:1}
+  /* a11y: keyboard focus inside the nav reveals it (2.4.7) */
+  #secnav:focus-within{transform:translateY(0);opacity:1}
+  /* a11y: visible focus on the search box (2.4.7) */
+  .search input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  /* a11y: links inside running text get an underline, not color alone (1.4.1) */
+  p a:not(.cite){text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
+  /* a11y: content for screen readers only */
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  /* recovery chart data table (text alternative) */
+  .chart-data{margin-top:1.6em;border-top:1px solid var(--hair)}
+  .chart-data summary{cursor:pointer;padding:14px 0;font-family:"SF Mono",monospace;font-size:.78rem;letter-spacing:.04em;color:var(--ink-soft)}
+  .chart-data summary:hover{color:var(--accent)}
+  .chart-data .tablewrap{overflow-x:auto;padding-bottom:6px}
+  .chart-data table{border-collapse:collapse;width:100%;min-width:560px}
+  .chart-data caption{text-align:left;font-size:.82rem;color:var(--ink-soft);padding:0 0 10px}
+  .chart-data th,.chart-data td{padding:9px 14px 9px 0;border-bottom:1px solid var(--hair);text-align:left;vertical-align:baseline}
+  .chart-data thead th{font-family:"SF Mono",monospace;font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:500;border-bottom:1px solid var(--ink)}
+  .chart-data tbody th{font-weight:400;font-size:.95rem}
+  .chart-data td{font-family:"SF Mono",monospace;font-size:.8rem;color:var(--ink-soft)}
+  .chart-data .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .chart-data td.hi{color:var(--ink);font-weight:600}
   .secnav-in{max-width:1180px;margin:0 auto;display:flex;padding:0 22px;overflow-x:auto;scrollbar-width:none}
   .secnav-in::-webkit-scrollbar{display:none}
   #secnav a{font-family:"SF Mono",ui-monospace,monospace;font-size:.64rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;padding:13px;white-space:nowrap;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
@@ -221,6 +243,7 @@
   </div>
 </nav>
 
+<main id="main">
 <header class="mast">
   <div class="wrap">
     <div class="kick"><span class="dateline">The Habitat Files</span><span class="dateline" style="text-align:right">Published · July 14, 2026<br>Effective · September 14, 2026</span></div>
@@ -234,7 +257,8 @@
 <section id="explore">
   <div class="wrap">
     <div class="secnum"><span class="n">01</span><span class="eyebrow mute">The scale · explore</span><span class="ln"></span></div>
-    <p class="lead drop">This explorer brings together <strong>1,643</strong> distinct species represented in current U.S. Endangered Species Act listings: <strong>1,594</strong> from Fish &amp; Wildlife Service data and <strong>49</strong> marine species managed by NOAA Fisheries.<a class="cite" href="#src-2" title="Sources: Species explorer">2</a></p>
+    <h2 class="sr-only">Explore the 1,643 listed species</h2>
+    <p class="lead drop">This explorer brings together <strong>1,643</strong> distinct species represented in current U.S. Endangered Species Act listings: <strong>1,594</strong> from Fish &amp; Wildlife Service data and <strong>49</strong> marine species managed by NOAA Fisheries.<a class="cite" href="#src-2" title="Sources: Species explorer" aria-label="Source note 2: Species explorer">2</a></p>
     <p>The rule examined here concerns the ESA's prohibition on the “take” of fish and wildlife, so its direct effect falls on the animals in this collection.</p>
   </div>
 </section>
@@ -246,7 +270,7 @@
         <div class="n" id="statN">1,643 species</div>
         <div class="c" id="statC">937 plants and lichens · 706 animals</div>
       </div>
-      <div class="search"><span class="ic">⌕</span><input id="search" type="text" placeholder="search a species…" autocomplete="off"></div>
+      <div class="search"><span class="ic" aria-hidden="true">⌕</span><input id="search" type="text" placeholder="search a species…" aria-label="Search species by common or scientific name" autocomplete="off"></div>
     </div>
 
     <div class="banner">Every dot represents one distinct taxonomic species in the project dataset; some species have more than one legally listed population. Habitat loss and degradation appear again and again across nearly every group.</div>
@@ -274,6 +298,7 @@
     </div>
 
     <div class="active-filters" id="activeFilters" hidden></div>
+    <div id="a11yStatus" class="sr-only" role="status" aria-live="polite"></div>
 
     <div class="stage"><svg id="dots" role="img" aria-label="Interactive grid of 1,643 endangered and threatened U.S. species"></svg></div>
 
@@ -291,7 +316,7 @@
     <div class="secnum"><span class="n">02</span><span class="eyebrow mute">The pivot</span><span class="ln"></span></div>
     <h2>The fight turns on the meaning of one word.</h2>
     <p>The ESA makes it illegal to “take” endangered wildlife, and similar protections apply to many threatened animals.</p>
-    <p>For decades, federal regulations interpreted “harm,” one form of prohibited “take,” to include significant habitat modification when it actually killed or injured wildlife. NOAA adopted a similar definition in 1999.<a class="cite" href="#src-1" title="Sources: The rule">1</a></p>
+    <p>For decades, federal regulations interpreted “harm,” one form of prohibited “take,” to include significant habitat modification when it actually killed or injured wildlife. NOAA adopted a similar definition in 1999.<a class="cite" href="#src-1" title="Sources: The rule" aria-label="Source note 1: The rule">1</a></p>
     <p>The new rule removes that definition. Under the agencies’ new reading, destroying habitat does not count as “take” unless the action is directed at the animal itself.</p>
     <div class="pull old"><span class="lab">Until September 13, 2026</span><p style="margin:0">Significant habitat modification or degradation can count as “harm” when it actually kills or injures wildlife by significantly impairing essential behavioral patterns.</p></div>
     <div class="pull new"><span class="lab">Beginning September 14, 2026</span><p style="margin:0">The regulatory definition is removed. The word “harm” remains in the Act, but the agencies say habitat modification or degradation does not qualify as “take.”</p></div>
@@ -304,7 +329,7 @@
   <div class="wrap">
     <div class="secnum"><span class="n">03</span><span class="eyebrow mute">What's already gone</span><span class="ln"></span></div>
     <h2>For some listed species, almost all of their habitat is already gone.</h2>
-    <p>Each outer square shows what once existed. The filled square shows what remains.<a class="cite" href="#src-3" title="Sources: Habitat-loss figures">3</a></p>
+    <p>Each outer square shows what once existed. The filled square shows what remains.<a class="cite" href="#src-3" title="Sources: Habitat-loss figures" aria-label="Source note 3: Habitat-loss figures">3</a></p>
   </div>
   <div class="wrap wide">
     <div class="sm-grid reveal" id="rangeGrid"></div>
@@ -327,7 +352,17 @@
     <div class="slopes reveal" id="slopes"></div>
   </div>
   <div class="wrap">
-    <p class="slope-cap">Each chart begins at a documented low, often before the Endangered Species Act was passed in 1973, and ends with the latest available count. The increases that followed reflect decades of habitat protection, captive breeding, reintroduction, pesticide restrictions, hunting controls, and other recovery work carried out under and alongside the ESA.<a class="cite" href="#src-4" title="Sources: Recovery figures">4</a></p>
+    <p class="slope-cap">Each chart begins at a documented low, often before the Endangered Species Act was passed in 1973, and ends with the latest available count. The increases that followed reflect decades of habitat protection, captive breeding, reintroduction, pesticide restrictions, hunting controls, and other recovery work carried out under and alongside the ESA.<a class="cite" href="#src-4" title="Sources: Recovery figures" aria-label="Source note 4: Recovery figures">4</a></p>
+    <details class="chart-data" id="recoveryData">
+      <summary>View the chart data as a table</summary>
+      <div class="tablewrap">
+        <table>
+          <caption>Population recovery for nine species: documented low and latest count. Units and survey methods differ by species. <span aria-hidden="true">~ means about, &gt; more than, ≥ at least.</span></caption>
+          <thead><tr><th scope="col">Species</th><th scope="col">What is counted</th><th scope="col" class="num">Documented low</th><th scope="col" class="num">Year</th><th scope="col" class="num">Latest count</th><th scope="col" class="num">Year</th></tr></thead>
+          <tbody id="recoveryRows"></tbody>
+        </table>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -335,6 +370,7 @@
 <section class="balance" id="debate">
   <div class="wrap">
     <div class="secnum"><span class="n">05</span><span class="eyebrow mute">In fairness</span><span class="ln"></span></div>
+    <h2 class="sr-only">In fairness: the debate over the rule</h2>
     <div class="two">
       <div class="for"><h3>The administration's case</h3>
         <p>The administration argues that the old definition turned indirect habitat effects into federal liability, left landowners unsure when a permit was required, and added unnecessary costs to farming, ranching, construction, fishing, and energy projects.</p>
@@ -342,7 +378,7 @@
       <div class="against"><h3>Why critics say it fails</h3>
         <p>A nesting tree can be felled, a spawning stream drained, or a migration corridor cut off without anyone touching the animal itself. Under the old rule, habitat damage counted as harm only when it actually killed or injured wildlife. It was never a blanket ban on land use.</p>
         <p>Critics respond that those protections do not cover the same ground. Critical-habitat review generally applies only when a federal agency funds, permits, or carries out an action, leaving a larger gap for activity on private land without a federal connection.</p>
-        <p>The ESA's record is also hard to dismiss: fewer than one percent of listed species have gone extinct after receiving its protection.<a class="cite" href="#src-4" title="Sources: Recovery figures">4</a></p>
+        <p>The ESA's record is also hard to dismiss: fewer than one percent of listed species have gone extinct after receiving its protection.<a class="cite" href="#src-4" title="Sources: Recovery figures" aria-label="Source note 4: Recovery figures">4</a></p>
         <p>A coalition of conservation groups filed a federal lawsuit on July 14, challenging the new rule as contrary to the ESA and decades of legal precedent.</p></div>
     </div>
   </div>
@@ -376,11 +412,12 @@
     <p class="close-note" style="margin-top:1.6em;color:var(--ink-soft);font-size:.82rem">Legal challenge filed July 14, 2026. Case No. 2:26-cv-02474, U.S. District Court, Western District of Washington.</p>
   </div>
 </section>
+</main>
 
 <hr class="rule">
 <footer id="sources">
   <div class="wrap">
-    <div class="eyebrow">Sources &amp; method</div>
+    <h2 class="eyebrow src-h">Sources &amp; method</h2>
     <p class="src-intro">Every figure in this piece is traceable to a public source. Expand a section for the underlying data and choices. The small numbered markers beside the charts and claims jump straight to the matching section.</p>
 
     <details class="srcsec" id="src-1" open>
@@ -477,26 +514,26 @@
   // ---- controls ----
   const arrangeOpts=[["none","Grid"],["group","By group"],["status","By status"],["source","By agency"]];
   const ac=document.getElementById("arrangeChips");
-  ac.innerHTML=arrangeOpts.map(o=>`<button class="chip grp${o[0]==="none"?" on":""}" data-a="${o[0]}">${o[1]}</button>`).join("");
+  ac.innerHTML=arrangeOpts.map(o=>`<button class="chip grp${o[0]==="none"?" on":""}" data-a="${o[0]}" aria-pressed="${o[0]==="none"?"true":"false"}">${o[1]}</button>`).join("");
   ac.addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;
-    state.arrange=b.dataset.a;ac.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",c===b));layout();});
+    state.arrange=b.dataset.a;ac.querySelectorAll(".chip").forEach(c=>{c.classList.toggle("on",c===b);c.setAttribute("aria-pressed",c===b?"true":"false");});layout();});
 
   const fg=document.getElementById("fGroup");
-  fg.innerHTML=groupOrder.map(v=>`<button class="chip" data-v="${v}">${v}</button>`).join("");
+  fg.innerHTML=groupOrder.map(v=>`<button class="chip" data-v="${v}" aria-pressed="false">${v}</button>`).join("");
   fg.addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;
     const v=b.dataset.v;if(state.group.has(v)){state.group.delete(v);b.classList.remove("on");}else{state.group.add(v);b.classList.add("on");}
     applyFilter();});
 
   const STATUSES=[["E","Endangered"],["T","Threatened"],["S","Sim. of appearance"]];
   const fs2=document.getElementById("fStatus");
-  fs2.innerHTML=STATUSES.map(s=>`<button class="chip" data-v="${s[0]}">${s[1]}</button>`).join("");
+  fs2.innerHTML=STATUSES.map(s=>`<button class="chip" data-v="${s[0]}" aria-pressed="false">${s[1]}</button>`).join("");
   fs2.addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;
     const v=b.dataset.v;if(state.status.has(v)){state.status.delete(v);b.classList.remove("on");}else{state.status.add(v);b.classList.add("on");}
     applyFilter();});
 
   const SOURCES=[["FWS","FWS"],["NOAA","NOAA"]];
   const fsrc=document.getElementById("fSource");
-  fsrc.innerHTML=SOURCES.map(s=>`<button class="chip" data-v="${s[0]}">${s[1]}</button>`).join("");
+  fsrc.innerHTML=SOURCES.map(s=>`<button class="chip" data-v="${s[0]}" aria-pressed="false">${s[1]}</button>`).join("");
   fsrc.addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;
     const v=b.dataset.v;if(state.source.has(v)){state.source.delete(v);b.classList.remove("on");}else{state.source.add(v);b.classList.add("on");}
     applyFilter();});
@@ -515,9 +552,15 @@
   const STLAB={E:"Endangered",T:"Threatened",S:"Sim. of appearance"};
   const labelFor=(k,v)=>k==="status"?(STLAB[v]||v):v;
   function syncChips(){
-    fg.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",state.group.has(c.dataset.v)));
-    fs2.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",state.status.has(c.dataset.v)));
-    fsrc.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",state.source.has(c.dataset.v)));
+    const set=(wrap,s)=>wrap.querySelectorAll(".chip").forEach(c=>{const on=s.has(c.dataset.v);c.classList.toggle("on",on);c.setAttribute("aria-pressed",on?"true":"false");});
+    set(fg,state.group);set(fs2,state.status);set(fsrc,state.source);
+  }
+  // screen-reader status messages (4.1.3): one polite live region for filters, search and copy feedback
+  const srStatus=document.getElementById("a11yStatus");
+  let srTimer=null,srReady=false;
+  function announce(msg,delay){
+    clearTimeout(srTimer);
+    srTimer=setTimeout(()=>{if(!srStatus)return;srStatus.textContent="";requestAnimationFrame(()=>{srStatus.textContent=msg;});},delay||0);
   }
   function renderActive(){
     const items=[];
@@ -526,7 +569,7 @@
     state.source.forEach(v=>items.push(["source",v]));
     if(!items.length){activeWrap.setAttribute("hidden","");activeWrap.innerHTML="";return;}
     activeWrap.removeAttribute("hidden");
-    activeWrap.innerHTML=items.map(([k,v])=>`<button class="afchip" data-k="${k}" data-v="${v}">${labelFor(k,v)} <span class="x">✕</span></button>`).join("")
+    activeWrap.innerHTML=items.map(([k,v])=>`<button class="afchip" data-k="${k}" data-v="${v}" aria-label="Remove filter: ${labelFor(k,v)}">${labelFor(k,v)} <span class="x" aria-hidden="true">✕</span></button>`).join("")
       +`<button class="afchip clear" data-k="clear">Clear all</button>`;
   }
   activeWrap.addEventListener("click",e=>{
@@ -626,9 +669,12 @@
     if(vis===N){statN.textContent="1,643 species";statC.textContent=plantTotal+" plants and lichens · "+animalTotal+" animals";}
     else{statN.textContent=vis.toLocaleString()+" of 1,643";
       statC.textContent=(state.search?('matches for “'+state.search+'”'):'shown with current filters');}
+    syncChips();
     renderActive();
     const nA=state.group.size+state.status.size+state.source.size;
     fCount.textContent=nA?(" · "+nA):"";
+    if(srReady) announce(vis===N?"All 1,643 species shown.":vis.toLocaleString()+" of 1,643 species shown"+(state.search?" matching “"+state.search+"”":"")+".",500);
+    srReady=true;
   }
 
   // tooltip
@@ -693,7 +739,7 @@
       const c=i%10, r=(i/10|0);
       cells+=`<rect x="${(c*10+0.5).toFixed(1)}" y="${(r*10+0.5).toFixed(1)}" width="9" height="9" fill="${i<lost?'#e7e1d2':'#b8402a'}"/>`;
     }
-    return `<div class="sm"><svg viewBox="0 0 100 100" aria-label="${d.nm}: ${d.lost}% of ${d.of}, ${lost} of 100 cells lost">
+    return `<div class="sm"><svg viewBox="0 0 100 100" role="img" aria-label="${d.nm}: ${d.lost}% of ${d.of}, ${lost} of 100 cells lost">
       ${cells}</svg>
       <div class="pct">${d.lost}%</div><div class="of">of ${d.of}</div>
       <div class="nm">${d.nm}</div><div class="hb">${d.src}</div></div>`;}).join("");
@@ -703,35 +749,42 @@
     {nm:"Bald eagle",sub:"Nesting pairs",lo:417,hi:71400,loY:"1963",hiY:"2019"},
     {nm:"Whooping crane",sub:"Wild birds",lo:21,hi:557,loY:"1941",hiY:"2025"},
     {nm:"California condor",sub:"Wild birds",lo:22,hi:392,loY:"1982",hiY:"2025"},
-    {nm:"Aleutian cackling goose",sub:"Wild birds",lo:790,hi:30000,loY:"1975",hiY:"2001"},
-    {nm:"Peregrine falcon",sub:"Nesting pairs",lo:324,hi:3000,loY:"1975",hiY:"2006"},
-    {nm:"Florida manatee",sub:"Aerial-survey count",lo:1267,hi:8350,loY:"1991",hiY:"2024"},
+    {nm:"Aleutian cackling goose",sub:"Wild birds",lo:790,hi:30000,hiQ:">",loY:"1975",hiY:"2001"},
+    {nm:"Peregrine falcon",sub:"Nesting pairs",lo:324,hi:3000,hiQ:"~",loY:"1975",hiY:"2006"},
+    {nm:"Florida manatee",sub:"Aerial-survey count",lo:1267,hi:8350,hiQ:"≥",loY:"1991",hiY:"2024"},
     {nm:"Grizzly bear (Yellowstone)",sub:"Wild bears",lo:136,hi:965,loY:"1975",hiY:"2022"},
-    {nm:"Island fox (San Miguel)",sub:"Wild individuals",lo:15,hi:700,loY:"1999",hiY:"2016"},
-    {nm:"Black-footed ferret",sub:"Wild individuals",lo:18,hi:350,loY:"1981",hiY:"2025"}];
+    {nm:"Island fox (San Miguel)",sub:"Wild individuals",lo:15,loQ:"~",hi:700,hiQ:"~",loY:"1999",hiY:"2016"},
+    {nm:"Black-footed ferret",sub:"Wild individuals",lo:18,hi:350,hiQ:"~",loY:"1981",hiY:"2025"}];
+  // qualifiers from the source notes (approximate / lower-bound counts); plotted at the stated number
+  const qWord={"~":"about",">":"more than","≥":"at least"};
+  const qTxt=(q,v)=>(q||"")+v.toLocaleString();
+  const qCell=(q,v)=>(q?`<span aria-hidden="true">${q}</span><span class="sr-only">${qWord[q]} </span>`:"")+v.toLocaleString();
   // shared log-axis dumbbells, sorted by fold-increase (line length = the multiplier)
   const sorted=rec.slice().sort((a,b)=>(b.hi/b.lo)-(a.hi/a.lo));
   const VW=1000, rowH=50, top=22, axisY=top+sorted.length*rowH+8, VH=axisY+84;
   const xL=225, xR=940, plotW=xR-xL, lg=Math.log10, xOf=v=>xL+(lg(v)-1)/4*plotW; // domain 10..100,000
-  let out=`<svg viewBox="0 0 ${VW} ${VH}" class="dumbbell" role="img" aria-label="Population recovery of nine species from a documented low to the latest count, on a shared logarithmic axis (units and survey methods differ by species)">`;
-  [10,100,1000,10000,100000].forEach(g=>{const x=xOf(g).toFixed(1);out+=`<line x1="${x}" y1="${top-6}" x2="${x}" y2="${axisY}" stroke="#efeade" stroke-width="1"/><text x="${x}" y="${axisY+18}" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#8a8577">${g.toLocaleString()}</text>`;});
-  out+=`<circle cx="470" cy="${axisY+48}" r="4" fill="#f6f4ee" stroke="#17150f" stroke-width="1.5"/><text x="481" y="${axisY+51}" font-family="SF Mono,monospace" font-size="9.5" fill="#8a8577">documented low</text>`
-    +`<circle cx="618" cy="${axisY+48}" r="5" fill="#17150f"/><text x="629" y="${axisY+51}" font-family="SF Mono,monospace" font-size="9.5" fill="#8a8577">latest count</text>`;
-  out+=`<text x="${((xL+xR)/2).toFixed(0)}" y="${VH-8}" text-anchor="middle" font-family="SF Mono,monospace" font-size="10" fill="#a89f8c">Population count, logarithmic scale · units and survey methods differ by species</text>`;
+  let out=`<svg viewBox="0 0 ${VW} ${VH}" class="dumbbell" role="img" aria-label="Dot chart of population recovery for nine species, from a documented low to the latest count, on a logarithmic scale. Units and survey methods differ by species. The full figures are in the data table below the chart.">`;
+  [10,100,1000,10000,100000].forEach(g=>{const x=xOf(g).toFixed(1);out+=`<line x1="${x}" y1="${top-6}" x2="${x}" y2="${axisY}" stroke="#efeade" stroke-width="1"/><text x="${x}" y="${axisY+18}" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#6b6655">${g.toLocaleString()}</text>`;});
+  out+=`<circle cx="470" cy="${axisY+48}" r="4" fill="#f6f4ee" stroke="#17150f" stroke-width="1.5"/><text x="481" y="${axisY+51}" font-family="SF Mono,monospace" font-size="9.5" fill="#6b6655">documented low</text>`
+    +`<circle cx="618" cy="${axisY+48}" r="5" fill="#17150f"/><text x="629" y="${axisY+51}" font-family="SF Mono,monospace" font-size="9.5" fill="#6b6655">latest count</text>`;
+  out+=`<text x="${((xL+xR)/2).toFixed(0)}" y="${VH-8}" text-anchor="middle" font-family="SF Mono,monospace" font-size="10" fill="#6b6655">Population count, logarithmic scale · units and survey methods differ by species</text>`;
   sorted.forEach((d,i)=>{
     const yc=top+i*rowH+rowH/2, xlo=xOf(d.lo).toFixed(1), xhi=xOf(d.hi).toFixed(1);
     out+=`<line x1="${xlo}" y1="${yc}" x2="${xhi}" y2="${yc}" stroke="#8a8577" stroke-width="2.5"/>`
       +`<circle cx="${xlo}" cy="${yc}" r="4" fill="#f6f4ee" stroke="#17150f" stroke-width="1.5"/>`
       +`<circle cx="${xhi}" cy="${yc}" r="5.4" fill="#17150f"/>`
       +`<text x="8" y="${yc-2}" font-family="Georgia,'Times New Roman',serif" font-size="14" fill="#17150f">${d.nm}</text>`
-      +`<text x="8" y="${yc+13}" font-family="SF Mono,monospace" font-size="8.5" fill="#8a8577">${d.sub}</text>`
-      +`<text x="${xlo}" y="${yc-24}" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#6b6655">${d.lo.toLocaleString()}</text>`
-      +`<text x="${xlo}" y="${yc-11}" text-anchor="middle" font-family="SF Mono,monospace" font-size="8" fill="#8a8577">${d.loY}</text>`
-      +`<text x="${xhi}" y="${yc-24}" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" font-weight="bold" fill="#17150f">${d.hi.toLocaleString()}</text>`
-      +`<text x="${xhi}" y="${yc-11}" text-anchor="middle" font-family="SF Mono,monospace" font-size="8" fill="#8a8577">${d.hiY}</text>`;
+      +`<text x="8" y="${yc+13}" font-family="SF Mono,monospace" font-size="8.5" fill="#6b6655">${d.sub}</text>`
+      +`<text x="${xlo}" y="${yc-24}" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#4a463c">${qTxt(d.loQ,d.lo)}</text>`
+      +`<text x="${xlo}" y="${yc-11}" text-anchor="middle" font-family="SF Mono,monospace" font-size="8" fill="#6b6655">${d.loY}</text>`
+      +`<text x="${xhi}" y="${yc-24}" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" font-weight="bold" fill="#17150f">${qTxt(d.hiQ,d.hi)}</text>`
+      +`<text x="${xhi}" y="${yc-11}" text-anchor="middle" font-family="SF Mono,monospace" font-size="8" fill="#6b6655">${d.hiY}</text>`;
   });
   out+=`</svg>`;
   document.getElementById("slopes").innerHTML=out;
+  // text alternative: same records, same order as the chart
+  const recRows=document.getElementById("recoveryRows");
+  if(recRows) recRows.innerHTML=sorted.map(d=>`<tr><th scope="row">${d.nm}</th><td>${d.sub}</td><td class="num">${qCell(d.loQ,d.lo)}</td><td class="num">${d.loY}</td><td class="num hi">${qCell(d.hiQ,d.hi)}</td><td class="num">${d.hiY}</td></tr>`).join("");
 
   const io=new IntersectionObserver(es=>es.forEach(e=>{
     if(!e.isIntersecting)return; e.target.classList.add("in");
@@ -745,15 +798,15 @@
   if(copyBtn)copyBtn.addEventListener("click",()=>{
     const t=document.getElementById("ctaMsg").textContent.trim();
     (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{
-      copyBtn.textContent="Copied ✓";copyBtn.classList.add("done");
+      copyBtn.textContent="Copied ✓";copyBtn.classList.add("done");announce("Message copied to clipboard.");
       setTimeout(()=>{copyBtn.textContent="Copy message";copyBtn.classList.remove("done");},2200);
-    }).catch(()=>{copyBtn.textContent="Select & press ⌘/Ctrl-C";setTimeout(()=>copyBtn.textContent="Copy message",2600);});
+    }).catch(()=>{copyBtn.textContent="Select & press ⌘/Ctrl-C";announce("Couldn't copy automatically. Select the message text and copy it.");setTimeout(()=>copyBtn.textContent="Copy message",2600);});
   });
   const shareBtn=document.getElementById("shareBrief");
   if(shareBtn)shareBtn.addEventListener("click",e=>{
     const url="https://habitatfiles.org/",lbl=shareBtn.querySelector("span");
     if(navigator.share){e.preventDefault();navigator.share({title:"The Habitat Files",text:"A data-driven brief on the Endangered Species Act “harm” rule.",url}).catch(()=>{});}
-    else if(navigator.clipboard){e.preventDefault();navigator.clipboard.writeText(url).then(()=>{const o=lbl.textContent;lbl.textContent="Link copied ✓";setTimeout(()=>lbl.textContent=o,2200);}).catch(()=>{});}
+    else if(navigator.clipboard){e.preventDefault();navigator.clipboard.writeText(url).then(()=>{const o=lbl.textContent;lbl.textContent="Link copied ✓";announce("Link to this brief copied to clipboard.");setTimeout(()=>lbl.textContent=o,2200);}).catch(()=>{});}
   });
 })();
 </script>
